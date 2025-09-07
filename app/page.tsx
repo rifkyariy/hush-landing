@@ -4,8 +4,8 @@ import { useState, useEffect, useRef } from 'react';
 import { Sparkles, Zap, Heart, Bell, Moon, Activity, ShieldCheck, Cpu } from 'lucide-react';
 
 // Custom hook to check if an element is in the viewport
-function useInView(options) {
-  const ref = useRef(null);
+function useInView(options: IntersectionObserverInit): [React.RefObject<HTMLElement>, boolean] {
+  const ref = useRef<HTMLElement>(null);
   const [inView, setInView] = useState(false);
 
   useEffect(() => {
@@ -40,7 +40,7 @@ export default function App() {
   const [numbersRef, numbersInView] = useInView({ threshold: 0.1 });
   const [testimonialsRef, testimonialsInView] = useInView({ threshold: 0.1 });
 
-  const showModal = (message) => {
+  const showModal = (message: string) => {
     setModalMessage(message);
     setIsModalOpen(true);
   };
@@ -76,7 +76,7 @@ export default function App() {
           </div>
           <div className="hidden sm:flex items-center space-x-8 text-sm font-medium">
             <a href="#approach" className="text-gray-600 hover:text-green-600 transition-colors">Approach</a>
-            <a href="#numbers" className="text-gray-600 hover:text-green-600 transition-colors">By the Numbers</a>
+            <a href="#numbers" className="text-gray-600 hover:text-green-600 transition-colors">Technology</a>
             <a href="#testimonials" className="text-gray-600 hover:text-green-600 transition-colors">Testimonials</a>
           </div>
         </nav>
@@ -85,7 +85,6 @@ export default function App() {
       {/* Hero Section */}
       <section 
         className="relative w-full min-h-screen flex items-center bg-gray-50"
-        // style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23d1fae5' fill-opacity='0.4' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='13' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E")` }}
         style={{ backgroundImage: `url("/assets/img/bg-pattern-1.png")`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundPosition: 'center', fillOpacity: 0.4 }}
       >
         <div className="container mx-auto px-6 text-center z-10 py-32">
@@ -199,7 +198,7 @@ export default function App() {
         </div>
       </section>
 
-       {/* Technology Section */}
+      {/* Technology Section */}
       <section 
         id="numbers"
         ref={numbersRef}
