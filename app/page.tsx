@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from 'react';
-import { Sparkles, Home, AlertCircle, TrendingUp, Leaf, Recycle, Package, Users, Heart, Bell, Moon, Activity } from 'lucide-react';
+import { Sparkles, Zap, Heart, Bell, Moon, Activity, ShieldCheck, Cpu } from 'lucide-react';
 
 // Custom hook to check if an element is in the viewport
 function useInView(options) {
@@ -199,7 +199,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* By the Numbers Section */}
+       {/* Technology Section */}
       <section 
         id="numbers"
         ref={numbersRef}
@@ -208,41 +208,43 @@ export default function App() {
         }`}
       >
         <div className="container mx-auto px-6 lg:px-8">
-          <div className="text-left mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-green-600">By the numbers.</h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
-            <div className="p-8 bg-white rounded-xl border border-gray-200">
-              <Leaf className="w-8 h-8 text-green-600 mb-4" />
-              <p className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">31.8M</p>
-              <p className="text-gray-600">Metric tons of CO2e emissions avoided through our supplier clean energy program in 2024.</p>
+            <div className="text-left mb-16">
+                 <h2 className="text-4xl md:text-5xl font-bold text-gray-900">Help make parenting feel easier.</h2>
+                 <p className="text-lg text-gray-600 mt-4 max-w-3xl">We build smart, reliable technology so you can have more peace of mind.</p>
             </div>
-             <div className="p-8 bg-white rounded-xl border border-gray-200">
-              <Recycle className="w-8 h-8 text-green-600 mb-4" />
-              <p className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">50%</p>
-              <p className="text-gray-600">Of materials sourced in our products from recycled or renewable sources in 2024.</p>
+            
+            {/* Hero Block */}
+            <div className="bg-white rounded-2xl border border-gray-200 mb-8">
+                <div className="grid grid-cols-1 lg:grid-cols-2 items-center gap-8">
+                    <div className="p-8 lg:p-12">
+                        <Sparkles className="w-10 h-10 text-emerald-500 mb-4" />
+                        <h3 className="text-3xl font-bold text-gray-900 mb-4">Engineered for calm days and quiet nights.</h3>
+                        <p className="text-gray-600">Hush integrates our most advanced sensors, AI, and security features into a simple, reliable monitor. It's smart technology designed to fade into the background, so you can be more present.</p>
+                    </div>
+                    <div className="p-8 lg:p-12">
+                      <img src="/assets/img/product-preview.png" alt="A sleek baby monitor on a clean surface" className="w-full h-auto rounded-lg"/>
+                    </div>
+                </div>
             </div>
-             <div className="p-8 bg-white rounded-xl border border-gray-200">
-              <Package className="w-8 h-8 text-green-600 mb-4" />
-              <p className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">1.8M</p>
-              <p className="text-gray-600">Devices and accessories sent to new owners for reuse in 2024.</p>
+
+            {/* 3-Column Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="bg-white rounded-2xl p-8 lg:p-12 border border-gray-200">
+                <Zap className="w-8 h-8 text-emerald-500 mb-4" />
+                <h3 className="text-xl font-bold text-gray-900 mb-2">Power-Efficient Design</h3>
+                <p className="text-gray-600">Days of monitoring on a single charge means less worrying about battery life and more focusing on your baby.</p>
+              </div>
+              <div className="bg-white rounded-2xl p-8 lg:p-12 border border-gray-200">
+                <Cpu className="w-8 h-8 text-emerald-500 mb-4" />
+                <h3 className="text-xl font-bold text-gray-900 mb-2">Smarter with On-Device AI</h3>
+                <p className="text-gray-600">Instant, private analysis of sounds and patterns without needing the cloud. Faster alerts, better privacy.</p>
+              </div>
+              <div className="bg-white rounded-2xl p-8 lg:p-12 border border-gray-200">
+                <ShieldCheck className="w-8 h-8 text-emerald-500 mb-4" />
+                <h3 className="text-xl font-bold text-gray-900 mb-2">Unbreakable Security</h3>
+                <p className="text-gray-600">Using a secure, independent network and end-to-end encryption, your family's data stays private. Period.</p>
+              </div>
             </div>
-             <div className="p-8 bg-white rounded-xl border border-gray-200">
-              <TrendingUp className="w-8 h-8 text-green-600 mb-4" />
-              <p className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">80%</p>
-              <p className="text-gray-600">Reduction in CO₂e emissions across our carbon footprint since 2015.</p>
-            </div>
-             <div className="p-8 bg-white rounded-xl border border-gray-200">
-              <Home className="w-8 h-8 text-green-600 mb-4" />
-              <p className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">10x</p>
-              <p className="text-gray-600">We’ve expanded our line-up of carbon neutral products to include all models of Series 10 and later.</p>
-            </div>
-            <div className="p-8 bg-white rounded-xl border border-gray-200">
-              <Users className="w-8 h-8 text-green-600 mb-4" />
-              <p className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">60%</p>
-              <p className="text-gray-600">More of carbon neutral products will be shipped direct from supplier to the user.</p>
-            </div>
-          </div>
         </div>
       </section>
 
