@@ -4,8 +4,8 @@ import { useState, useEffect, useRef } from 'react';
 import { Sparkles, Zap, Heart, Bell, Moon, Activity, ShieldCheck, Cpu } from 'lucide-react';
 
 // Custom hook to check if an element is in the viewport
-function useInView(options: IntersectionObserverInit): [React.RefObject<HTMLElement>, boolean] {
-  const ref = useRef<HTMLElement>(null);
+function useInView(options: IntersectionObserverInit): [React.RefObject<HTMLElement | null>, boolean] {
+  const ref = useRef<HTMLElement | null>(null);
   const [inView, setInView] = useState(false);
 
   useEffect(() => {
@@ -174,7 +174,7 @@ export default function App() {
       {/* A Detailed Approach Section */}
       <section 
         id="approach"
-        ref={approachRef}
+        ref={approachRef as React.RefObject<HTMLElement>}
         className={`w-full bg-white py-24 md:py-32 transition-all duration-1000 transform relative ${
           approachInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
         }`}
@@ -201,7 +201,7 @@ export default function App() {
       {/* Technology Section */}
       <section 
         id="numbers"
-        ref={numbersRef}
+        ref={numbersRef as React.RefObject<HTMLElement>}
         className={`w-full bg-gray-50 py-24 md:py-32 transition-all duration-1000 transform ${
           numbersInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
         }`}
@@ -250,7 +250,7 @@ export default function App() {
       {/* Testimonials Section */}
       <section 
         id="testimonials"
-        ref={testimonialsRef}
+        ref={testimonialsRef as React.RefObject<HTMLElement>}
         className={`bg-white py-24 md:py-32 transition-all duration-1000 transform ${
           testimonialsInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
         }`}
