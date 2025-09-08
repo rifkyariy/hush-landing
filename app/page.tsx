@@ -36,7 +36,9 @@ export default function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalMessage, setModalMessage] = useState('');
 
+  const [heroRef, heroInView] = useInView({ threshold: 0.1 });
   const [approachRef, approachInView] = useInView({ threshold: 0.1 });
+  const [teamRef, teamInView] = useInView({ threshold: 0.1 });
   const [numbersRef, numbersInView] = useInView({ threshold: 0.1 });
   const [testimonialsRef, testimonialsInView] = useInView({ threshold: 0.1 });
 
@@ -47,6 +49,17 @@ export default function App() {
 
   const closeModal = () => {
     setIsModalOpen(false);
+  };
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    const targetId = e.currentTarget.getAttribute('href');
+    if (targetId) {
+      const targetElement = document.querySelector(targetId);
+      if (targetElement) {
+        targetElement.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
   };
 
   // NOTE: This component assumes the "Inter" font is available, 
@@ -75,19 +88,21 @@ export default function App() {
             <span className="text-2xl font-bold text-gray-900">Hush</span>
           </div>
           <div className="hidden sm:flex items-center space-x-8 text-sm font-medium">
-            <a href="#approach" className="text-gray-600 hover:text-green-600 transition-colors">Approach</a>
-            <a href="#numbers" className="text-gray-600 hover:text-green-600 transition-colors">Technology</a>
-            <a href="#testimonials" className="text-gray-600 hover:text-green-600 transition-colors">Testimonials</a>
+            <a href="#approach" onClick={handleNavClick} className="text-gray-600 hover:text-green-600 transition-colors">Approach</a>
+            <a href="#team" onClick={handleNavClick} className="text-gray-600 hover:text-green-600 transition-colors">Our Team</a>
+            <a href="#numbers" onClick={handleNavClick} className="text-gray-600 hover:text-green-600 transition-colors">Technology</a>
+            <a href="#testimonials" onClick={handleNavClick} className="text-gray-600 hover:text-green-600 transition-colors">Testimonials</a>
           </div>
         </nav>
       </header>
 
       {/* Hero Section */}
       <section 
+        ref={heroRef}
         className="relative w-full min-h-screen flex items-center bg-gray-50"
         style={{ backgroundImage: `url("/assets/img/bg-pattern-1.png")`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundPosition: 'center', fillOpacity: 0.4 }}
       >
-        <div className="container mx-auto px-6 text-center z-10 py-32">
+        <div className={`container mx-auto px-6 text-center z-10 py-32 transition-all duration-1000 transform ${heroInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
            <img
             className="text-center mx-auto mb-4"
             src="/assets/img/hero-emoji-2.png"
@@ -174,26 +189,77 @@ export default function App() {
       {/* A Detailed Approach Section */}
       <section 
         id="approach"
-        ref={approachRef as React.RefObject<HTMLElement>}
-        className={`w-full bg-white py-24 md:py-32 transition-all duration-1000 transform relative ${
+        ref={approachRef}
+        className={`w-full bg-white py-24 md:py-32 transition-all duration-1000 transform ${
           approachInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
         }`}
       >
-        <div className="container mx-auto px-6 lg:px-8 w-full relative">
-          <img
-            src="/assets/img/how-its-works.png"
-            width="2200"
-            height="600"
-            alt={'How it works diagram'} 
-            className="w-full h-auto max-w-6xl mx-auto"
-            />
-          <div className="w-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">
-              How Hush Works
-              <br />
-              from sensors to sweet dreams
-            </h2>
-            <p className="text-xl text-emerald-600">Simple way to keep your newborn safe and comfy everyday.</p>
+        <div className="container mx-auto px-6 lg:px-8 w-full">
+            {/* Mobile-first heading */}
+            <div className="text-center lg:hidden mb-8">
+                <h2 className="text-3xl sm:text-4xl font-bold mb-2">How Hush Works</h2>
+                <p className="text-lg sm:text-xl text-gray-600">from sensors to sweet dreams</p>
+            </div>
+            {/* Container for image and desktop heading */}
+            <div className="relative">
+                <img
+                    src="/assets/img/how-its-works.png"
+                    width="1200"
+                    height="600"
+                    alt={'How it works diagram'} 
+                    className="w-full h-auto max-w-6xl mx-auto"
+                />
+                {/* Desktop-only overlay */}
+                <div className="hidden lg:block w-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
+                    <h2 className="text-4xl md:text-5xl font-bold mb-4">
+                        How Hush Works
+                        <br />
+                        from sensors to sweet dreams
+                    </h2>
+                    <p className="text-xl text-emerald-600">Simple way to keep your newborn safe and comfy everyday.</p>
+                </div>
+            </div>
+        </div>
+      </section>
+
+      {/* Our Team Section */}
+      <section 
+        id="team"
+        ref={teamRef}
+        className={`bg-gray-50 py-24 md:py-32 transition-all duration-1000 transform ${
+          teamInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
+        }`}
+        >
+        <div className="container mx-auto px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900">Meet Our Team</h2>
+            <p className="text-lg text-gray-600 mt-4 max-w-3xl mx-auto">The passionate minds behind the technology designed to give you peace of mind.</p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {/* Team Member 1 */}
+            <div className="text-center">
+              <img src="https://placehold.co/400x400/E0F2F1/14B8A6?text=Alex" alt="Alex Chen" className="w-48 h-48 rounded-full mx-auto mb-4 shadow-lg"/>
+              <h3 className="text-xl font-bold text-gray-900">Alex Chen</h3>
+              <p className="text-gray-500">Lead Engineer</p>
+            </div>
+            {/* Team Member 2 */}
+            <div className="text-center">
+              <img src="https://placehold.co/400x400/E0F2F1/14B8A6?text=Brenda" alt="Brenda Smith" className="w-48 h-48 rounded-full mx-auto mb-4 shadow-lg"/>
+              <h3 className="text-xl font-bold text-gray-900">Brenda Smith</h3>
+              <p className="text-gray-500">Head of Product</p>
+            </div>
+            {/* Team Member 3 */}
+            <div className="text-center">
+              <img src="https://placehold.co/400x400/E0F2F1/14B8A6?text=Carlos" alt="Carlos Gomez" className="w-48 h-48 rounded-full mx-auto mb-4 shadow-lg"/>
+              <h3 className="text-xl font-bold text-gray-900">Carlos Gomez</h3>
+              <p className="text-gray-500">UX/UI Designer</p>
+            </div>
+            {/* Team Member 4 */}
+            <div className="text-center">
+              <img src="https://placehold.co/400x400/E0F2F1/14B8A6?text=Diana" alt="Diana Miller" className="w-48 h-48 rounded-full mx-auto mb-4 shadow-lg"/>
+              <h3 className="text-xl font-bold text-gray-900">Diana Miller</h3>
+              <p className="text-gray-500">Hardware Specialist</p>
+            </div>
           </div>
         </div>
       </section>
@@ -201,8 +267,8 @@ export default function App() {
       {/* Technology Section */}
       <section 
         id="numbers"
-        ref={numbersRef as React.RefObject<HTMLElement>}
-        className={`w-full bg-gray-50 py-24 md:py-32 transition-all duration-1000 transform ${
+        ref={numbersRef}
+        className={`w-full bg-white py-24 md:py-32 transition-all duration-1000 transform ${
           numbersInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
         }`}
       >
@@ -213,7 +279,7 @@ export default function App() {
             </div>
             
             {/* Hero Block */}
-            <div className="bg-white rounded-2xl border border-gray-200 mb-8">
+            <div className="bg-gray-50 rounded-2xl border border-gray-200 mb-8">
                 <div className="grid grid-cols-1 lg:grid-cols-2 items-center gap-8">
                     <div className="p-8 lg:p-12">
                         <Sparkles className="w-10 h-10 text-emerald-500 mb-4" />
@@ -228,17 +294,17 @@ export default function App() {
 
             {/* 3-Column Grid */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="bg-white rounded-2xl p-8 lg:p-12 border border-gray-200">
+              <div className="bg-gray-50 rounded-2xl p-8 lg:p-12 border border-gray-200">
                 <Zap className="w-8 h-8 text-emerald-500 mb-4" />
                 <h3 className="text-xl font-bold text-gray-900 mb-2">Power-Efficient Design</h3>
                 <p className="text-gray-600">Days of monitoring on a single charge means less worrying about battery life and more focusing on your baby.</p>
               </div>
-              <div className="bg-white rounded-2xl p-8 lg:p-12 border border-gray-200">
+              <div className="bg-gray-50 rounded-2xl p-8 lg:p-12 border border-gray-200">
                 <Cpu className="w-8 h-8 text-emerald-500 mb-4" />
                 <h3 className="text-xl font-bold text-gray-900 mb-2">Smarter with On-Device AI</h3>
                 <p className="text-gray-600">Instant, private analysis of sounds and patterns without needing the cloud. Faster alerts, better privacy.</p>
               </div>
-              <div className="bg-white rounded-2xl p-8 lg:p-12 border border-gray-200">
+              <div className="bg-gray-50 rounded-2xl p-8 lg:p-12 border border-gray-200">
                 <ShieldCheck className="w-8 h-8 text-emerald-500 mb-4" />
                 <h3 className="text-xl font-bold text-gray-900 mb-2">Unbreakable Security</h3>
                 <p className="text-gray-600">Using a secure, independent network and end-to-end encryption, your family's data stays private. Period.</p>
@@ -250,7 +316,7 @@ export default function App() {
       {/* Testimonials Section */}
       <section 
         id="testimonials"
-        ref={testimonialsRef as React.RefObject<HTMLElement>}
+        ref={testimonialsRef}
         className={`bg-white py-24 md:py-32 transition-all duration-1000 transform ${
           testimonialsInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
         }`}
